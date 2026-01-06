@@ -1,5 +1,38 @@
 const Bus = require("../../model/busModel");
 const fs = require("fs")
+
+exports.getAllPosts = async (req, res)=>{
+  const allPosts = await Bus.find()
+  if(!allPosts){
+    return res.status(400).json({
+      message: "No Posts Found"
+    })
+  }
+  res.status(200).json({
+    message: "Posts fetched Successfully!",
+    data : allPosts
+  })
+}
+
+exports.getOnePost = async (req, res)=>{
+  const {id} = req.params
+  if(!id){
+    return res.status(400).json({
+      message : "Post with this id does not exist!"
+    })
+  }
+  const post = await Bus.find({_id : id})
+  if(!post){
+    return res.status(400).json({
+      message: "Something Went Wrong!"
+    })
+  }
+  res.status(200).json({
+    message: "Post fetched Successfully!",
+    data : post
+  })
+}
+
 exports.createBusPost = async(req, res)=> {
         let filePath
          if(!req.file){

@@ -32,7 +32,9 @@ const busSchema = new mongoose.Schema({
   image: {
     type: String,
   },
-  user_id : {type : Schema.Types.ObjectId, ref : "User"}
+  user_id : {type : Schema.Types.ObjectId, ref : "User"},
+// ✅ array of review references
+  reviews: [{ type: Schema.Types.ObjectId, ref: "Review" }]
 })
 
 const Bus = mongoose.model("Bus", busSchema)
